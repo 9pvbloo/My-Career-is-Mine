@@ -1,5 +1,7 @@
-import './style.css'
 import './animation/gsap'
+import './style.css'
+
+import { Runtime } from './app/Runtime'
 
 const app = document.querySelector<HTMLDivElement>('#app')
 
@@ -12,3 +14,7 @@ app.innerHTML = `
     <h1>My Career Is Mine.</h1>
   </main>
 `
+
+const runtime = new Runtime()
+
+runtime.start()
