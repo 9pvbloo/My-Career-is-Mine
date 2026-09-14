@@ -1,3 +1,4 @@
+import { Pointer } from '../core/Pointer'
 import { Renderer } from '../core/Renderer'
 import { Sizes } from '../core/Sizes'
 import { Time } from '../core/Time'
@@ -8,6 +9,7 @@ export class Runtime {
   readonly time = new Time()
   readonly sizes: Sizes
   readonly renderer: Renderer
+  readonly pointer: Pointer
 
   private frameId: number | null = null
   private running = false
@@ -16,6 +18,7 @@ export class Runtime {
   constructor() {
     this.sizes = new Sizes()
     this.renderer = new Renderer(this.sizes)
+    this.pointer = new Pointer(this.sizes)
 
     this.tick = this.tick.bind(this)
     this.handleVisibilityChange = this.handleVisibilityChange.bind(this)
@@ -67,6 +70,8 @@ export class Runtime {
     this.stop()
 
     this.updateCallbacks.clear()
+
+    this.pointer.dispose()
     this.renderer.dispose()
     this.sizes.dispose()
   }
@@ -77,6 +82,7 @@ export class Runtime {
     }
 
     this.time.update(now)
+    this.pointer.update(this.time.delta)
 
     for (const callback of this.updateCallbacks) {
       callback(this.time)
