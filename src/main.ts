@@ -18,3 +18,9 @@ app.innerHTML = `
 const runtime = new Runtime()
 
 runtime.start()
+
+if (import.meta.hot) {
+  import.meta.hot.dispose(() => {
+    runtime.stop()
+  })
+}
