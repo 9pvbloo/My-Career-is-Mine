@@ -35,10 +35,7 @@ export class Runtime {
     this.running = true
     this.time.reset()
 
-    document.addEventListener(
-      'visibilitychange',
-      this.handleVisibilityChange,
-    )
+    document.addEventListener('visibilitychange', this.handleVisibilityChange)
 
     this.frameId = requestAnimationFrame(this.tick)
   }

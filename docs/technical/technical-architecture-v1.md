@@ -1,4 +1,5 @@
 # My Career Is Mine.
+
 ## Technical Architecture V1
 
 This document defines the initial technical architecture for the experience.
@@ -10,21 +11,26 @@ The goal is to build a cinematic, interactive and high-performance website where
 # 01 — Core Stack
 
 ## Runtime
+
 - Vite
 - TypeScript
 
 ## WebGL
+
 - Three.js
 - GLSL shaders
 
 ## Motion
+
 - GSAP
 - ScrollTrigger
 
 ## Smooth Scroll
+
 - Lenis
 
 ## Styling
+
 - CSS
 - CSS Custom Properties
 - Responsive layout with modern CSS
@@ -65,8 +71,7 @@ Responsible for:
 
 Conceptually:
 
-DOM
-+
+DOM +
 WEBGL
 ↓
 FINAL EXPERIENCE
@@ -84,67 +89,67 @@ src/
 ├── style.css
 │
 ├── app/
-│   ├── App.ts
-│   ├── Runtime.ts
-│   └── Experience.ts
+│ ├── App.ts
+│ ├── Runtime.ts
+│ └── Experience.ts
 │
 ├── core/
-│   ├── Renderer.ts
-│   ├── Sizes.ts
-│   ├── Time.ts
-│   ├── Pointer.ts
-│   ├── ScrollDirector.ts
-│   └── AssetLoader.ts
+│ ├── Renderer.ts
+│ ├── Sizes.ts
+│ ├── Time.ts
+│ ├── Pointer.ts
+│ ├── ScrollDirector.ts
+│ └── AssetLoader.ts
 │
 ├── scenes/
-│   ├── HeroScene.ts
-│   ├── BreakAwayScene.ts
-│   ├── MomentumScene.ts
-│   ├── ForceScene.ts
-│   ├── UnboundScene.ts
-│   ├── FreedomScene.ts
-│   └── FinalScene.ts
+│ ├── HeroScene.ts
+│ ├── BreakAwayScene.ts
+│ ├── MomentumScene.ts
+│ ├── ForceScene.ts
+│ ├── UnboundScene.ts
+│ ├── FreedomScene.ts
+│ └── FinalScene.ts
 │
 ├── shaders/
-│   ├── liquid/
-│   │   ├── liquid.vert.glsl
-│   │   └── liquid.frag.glsl
-│   │
-│   ├── particles/
-│   │   ├── particles.vert.glsl
-│   │   └── particles.frag.glsl
-│   │
-│   └── transition/
-│       ├── transition.vert.glsl
-│       └── transition.frag.glsl
+│ ├── liquid/
+│ │ ├── liquid.vert.glsl
+│ │ └── liquid.frag.glsl
+│ │
+│ ├── particles/
+│ │ ├── particles.vert.glsl
+│ │ └── particles.frag.glsl
+│ │
+│ └── transition/
+│ ├── transition.vert.glsl
+│ └── transition.frag.glsl
 │
 ├── effects/
-│   ├── LiquidInteraction.ts
-│   ├── EnergyReveal.ts
-│   ├── ParticleSystem.ts
-│   └── TransitionSystem.ts
+│ ├── LiquidInteraction.ts
+│ ├── EnergyReveal.ts
+│ ├── ParticleSystem.ts
+│ └── TransitionSystem.ts
 │
 ├── animation/
-│   ├── MotionController.ts
-│   ├── HeroTimeline.ts
-│   ├── BreakAwayTimeline.ts
-│   ├── MomentumTimeline.ts
-│   └── FinalTimeline.ts
+│ ├── MotionController.ts
+│ ├── HeroTimeline.ts
+│ ├── BreakAwayTimeline.ts
+│ ├── MomentumTimeline.ts
+│ └── FinalTimeline.ts
 │
 ├── ui/
-│   ├── Cursor.ts
-│   ├── Navigation.ts
-│   ├── Loader.ts
-│   └── ScrollIndicator.ts
+│ ├── Cursor.ts
+│ ├── Navigation.ts
+│ ├── Loader.ts
+│ └── ScrollIndicator.ts
 │
 ├── utils/
-│   ├── math.ts
-│   ├── lerp.ts
-│   ├── clamp.ts
-│   └── device.ts
+│ ├── math.ts
+│ ├── lerp.ts
+│ ├── clamp.ts
+│ └── device.ts
 │
 └── types/
-    └── global.ts
+└── global.ts
 
 ---
 
@@ -490,18 +495,18 @@ Proposed folder structure:
 
 public/
 └── assets/
-    ├── horse/
-    │   ├── hero/
-    │   ├── energy/
-    │   ├── momentum/
-    │   └── details/
-    │
-    ├── textures/
-    │   ├── noise/
-    │   ├── masks/
-    │   └── displacement/
-    │
-    └── fonts/
+├── horse/
+│ ├── hero/
+│ ├── energy/
+│ ├── momentum/
+│ └── details/
+│
+├── textures/
+│ ├── noise/
+│ ├── masks/
+│ └── displacement/
+│
+└── fonts/
 
 Large assets should be compressed before production.
 
@@ -712,6 +717,7 @@ The website must not become blank.
 The experience will be built in phases.
 
 ## Phase 0
+
 Runtime Foundation
 
 - Vite
@@ -727,42 +733,55 @@ Runtime Foundation
 - basic DOM
 
 ## Phase 1
+
 Hero Static Composition
 
 ## Phase 2
+
 Liquid Interaction
 
 ## Phase 3
+
 Break Away
 
 ## Phase 4
+
 Momentum
 
 ## Phase 5
+
 Force
 
 ## Phase 6
+
 Unbound
 
 ## Phase 7
+
 Freedom
 
 ## Phase 8
+
 Final Statement
 
 ## Phase 9
+
 Contact
 
 ## Phase 10
+
 Responsive
 
 ## Phase 11
+
 Performance
 
 ## Phase 12
+
 Accessibility
 
 ## Phase 13
+
 Final Polish
 
 ---

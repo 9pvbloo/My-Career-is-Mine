@@ -40,8 +40,7 @@ export class ScrollDirector {
   update(delta: number): void {
     const smoothing = 1 - Math.exp(-10 * delta)
 
-    this.smoothProgress +=
-      (this.progress - this.smoothProgress) * smoothing
+    this.smoothProgress += (this.progress - this.smoothProgress) * smoothing
 
     this.velocity *= Math.exp(-8 * delta)
 
@@ -62,10 +61,7 @@ export class ScrollDirector {
       return 1
     }
 
-    return (
-      (this.smoothProgress - range.start) /
-      (range.end - range.start)
-    )
+    return (this.smoothProgress - range.start) / (range.end - range.start)
   }
 
   dispose(): void {
@@ -74,23 +70,16 @@ export class ScrollDirector {
 
   private handleScroll(): void {
     const scrollableHeight =
-      document.documentElement.scrollHeight -
-      window.innerHeight
+      document.documentElement.scrollHeight - window.innerHeight
 
     const nextProgress =
-      scrollableHeight > 0
-        ? window.scrollY / scrollableHeight
-        : 0
+      scrollableHeight > 0 ? window.scrollY / scrollableHeight : 0
 
     this.previousProgress = this.progress
 
-    this.progress = Math.min(
-      Math.max(nextProgress, 0),
-      1,
-    )
+    this.progress = Math.min(Math.max(nextProgress, 0), 1)
 
-    const difference =
-      this.progress - this.previousProgress
+    const difference = this.progress - this.previousProgress
 
     this.velocity = difference
 

@@ -49,10 +49,7 @@ export class Pointer {
     this.velocity.x *= damping
     this.velocity.y *= damping
 
-    if (
-      Math.abs(this.velocity.x) < 0.01 &&
-      Math.abs(this.velocity.y) < 0.01
-    ) {
+    if (Math.abs(this.velocity.x) < 0.01 && Math.abs(this.velocity.y) < 0.01) {
       this.velocity.x = 0
       this.velocity.y = 0
       this.direction.x = 0
@@ -96,21 +93,13 @@ export class Pointer {
     this.position.x = event.clientX
     this.position.y = event.clientY
 
-    const deltaSeconds = Math.max(
-      (now - this.lastMoveTime) / 1000,
-      0.001,
-    )
+    const deltaSeconds = Math.max((now - this.lastMoveTime) / 1000, 0.001)
 
-    this.velocity.x =
-      (this.position.x - this.previous.x) / deltaSeconds
+    this.velocity.x = (this.position.x - this.previous.x) / deltaSeconds
 
-    this.velocity.y =
-      (this.position.y - this.previous.y) / deltaSeconds
+    this.velocity.y = (this.position.y - this.previous.y) / deltaSeconds
 
-    const speed = Math.hypot(
-      this.velocity.x,
-      this.velocity.y,
-    )
+    const speed = Math.hypot(this.velocity.x, this.velocity.y)
 
     if (speed > 0) {
       this.direction.x = this.velocity.x / speed

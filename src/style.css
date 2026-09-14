@@ -6,23 +6,11 @@
   --color-gunmetal: #777777;
   --color-burgundy: #55151d;
 
-  --font-display:
-    "Arial Narrow",
-    "Helvetica Neue",
-    Arial,
-    sans-serif;
+  --font-display: 'Arial Narrow', 'Helvetica Neue', Arial, sans-serif;
 
-  --font-body:
-    Inter,
-    "Helvetica Neue",
-    Arial,
-    sans-serif;
+  --font-body: Inter, 'Helvetica Neue', Arial, sans-serif;
 
-  --font-mono:
-    "IBM Plex Mono",
-    "SFMono-Regular",
-    Consolas,
-    monospace;
+  --font-mono: 'IBM Plex Mono', 'SFMono-Regular', Consolas, monospace;
 
   --space-xs: 0.5rem;
   --space-sm: 0.75rem;
@@ -117,9 +105,7 @@ main,
   align-items: center;
   justify-content: space-between;
 
-  padding:
-    1.25rem
-    var(--page-padding);
+  padding: 1.25rem var(--page-padding);
 
   font-size: 0.75rem;
   letter-spacing: 0.08em;
@@ -255,10 +241,7 @@ main,
 }
 
 .scene--contact h2 {
-  margin:
-    0
-    0
-    1rem;
+  margin: 0 0 1rem;
 
   font-family: var(--font-display);
   font-size: clamp(5rem, 14vw, 13rem);
@@ -279,10 +262,7 @@ main,
 
   padding-bottom: 0.25rem;
 
-  border-bottom:
-    1px
-    solid
-    var(--color-burgundy);
+  border-bottom: 1px solid var(--color-burgundy);
 
   font-family: var(--font-mono);
   text-transform: uppercase;
@@ -292,9 +272,7 @@ main,
   display: flex;
   justify-content: space-between;
 
-  padding:
-    1.5rem
-    var(--page-padding);
+  padding: 1.5rem var(--page-padding);
 
   color: var(--color-gunmetal);
 
