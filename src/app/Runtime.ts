@@ -1,15 +1,22 @@
+import { Renderer } from '../core/Renderer'
+import { Sizes } from '../core/Sizes'
 import { Time } from '../core/Time'
 
 export type RuntimeUpdate = (time: Time) => void
 
 export class Runtime {
   readonly time = new Time()
+  readonly sizes: Sizes
+  readonly renderer: Renderer
 
   private frameId: number | null = null
   private running = false
   private readonly updateCallbacks = new Set<RuntimeUpdate>()
 
   constructor() {
+    this.sizes = new Sizes()
+    this.renderer = new Renderer(this.sizes)
+
     this.tick = this.tick.bind(this)
     this.handleVisibilityChange = this.handleVisibilityChange.bind(this)
   }
@@ -54,6 +61,14 @@ export class Runtime {
     return () => {
       this.updateCallbacks.delete(callback)
     }
+  }
+
+  dispose(): void {
+    this.stop()
+
+    this.updateCallbacks.clear()
+    this.renderer.dispose()
+    this.sizes.dispose()
   }
 
   private tick(now: number): void {
