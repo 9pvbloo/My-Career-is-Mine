@@ -1,5 +1,6 @@
 import { Pointer } from '../core/Pointer'
 import { Renderer } from '../core/Renderer'
+import { ScrollDirector } from '../core/ScrollDirector'
 import { Sizes } from '../core/Sizes'
 import { Time } from '../core/Time'
 
@@ -10,6 +11,7 @@ export class Runtime {
   readonly sizes: Sizes
   readonly renderer: Renderer
   readonly pointer: Pointer
+  readonly scroll: ScrollDirector
 
   private frameId: number | null = null
   private running = false
@@ -19,6 +21,7 @@ export class Runtime {
     this.sizes = new Sizes()
     this.renderer = new Renderer(this.sizes)
     this.pointer = new Pointer(this.sizes)
+    this.scroll = new ScrollDirector()
 
     this.tick = this.tick.bind(this)
     this.handleVisibilityChange = this.handleVisibilityChange.bind(this)
@@ -71,6 +74,7 @@ export class Runtime {
 
     this.updateCallbacks.clear()
 
+    this.scroll.dispose()
     this.pointer.dispose()
     this.renderer.dispose()
     this.sizes.dispose()
@@ -83,6 +87,7 @@ export class Runtime {
 
     this.time.update(now)
     this.pointer.update(this.time.delta)
+    this.scroll.update(this.time.delta)
 
     for (const callback of this.updateCallbacks) {
       callback(this.time)
