@@ -1,4 +1,5 @@
 # My Career Is Mine.
+
 ## Liquid Interaction Specification V1
 
 The hero interaction must feel physical, elegant and organic.
@@ -401,8 +402,7 @@ Displacement Render Target
 ↓
 GLSL Displacement Shader
 ↓
-Horse Main Texture
-+
+Horse Main Texture +
 Horse Energy Texture
 ↓
 Final WebGL Composition
