@@ -1,19 +1,16 @@
 import './animation/gsap'
 import './style.css'
 
+import { App } from './app/App'
 import { Runtime } from './app/Runtime'
 
-const app = document.querySelector<HTMLDivElement>('#app')
+const root = document.querySelector<HTMLDivElement>('#app')
 
-if (!app) {
+if (!root) {
   throw new Error('Application root not found.')
 }
 
-app.innerHTML = `
-  <main>
-    <h1>My Career Is Mine.</h1>
-  </main>
-`
+new App(root)
 
 const runtime = new Runtime()
 
