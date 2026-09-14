@@ -42,6 +42,7 @@ body {
   background: var(--color-obsidian);
 
   font-family: var(--font-body);
+
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
@@ -66,34 +67,58 @@ svg {
   min-height: 100vh;
 }
 
+/* ================================
+   EXPERIENCE
+================================ */
+
 .experience {
   position: relative;
+
   min-height: 100vh;
+
   overflow-x: clip;
 }
+
+/* ================================
+   WEBGL
+================================ */
 
 .webgl-layer {
   position: fixed;
   inset: 0;
+
   z-index: 0;
+
   pointer-events: none;
 }
 
 .webgl {
   position: fixed;
   inset: 0;
+
   width: 100%;
   height: 100%;
+
   z-index: 0;
+
   pointer-events: none;
 }
+
+/* ================================
+   DOM LAYERS
+================================ */
 
 .site-header,
 main,
 .site-footer {
   position: relative;
+
   z-index: 1;
 }
+
+/* ================================
+   HEADER
+================================ */
 
 .site-header {
   position: fixed;
@@ -120,11 +145,13 @@ main,
 
 .site-nav {
   display: flex;
+
   gap: 1.5rem;
 }
 
 .site-nav a {
   color: var(--color-gunmetal);
+
   transition: color 180ms ease;
 }
 
@@ -132,6 +159,10 @@ main,
 .site-nav a:focus-visible {
   color: var(--color-ivory);
 }
+
+/* ================================
+   BASE SCENE
+================================ */
 
 .scene {
   position: relative;
@@ -141,8 +172,13 @@ main,
   justify-content: center;
 
   min-height: 100vh;
+
   padding: var(--page-padding);
 }
+
+/* ================================
+   HERO
+================================ */
 
 .scene--hero {
   min-height: 120vh;
@@ -155,26 +191,49 @@ main,
 
 .scene--hero > .scene-label {
   position: relative;
-  z-index: 2;
 
   width: fit-content;
 
   margin-bottom: clamp(1.5rem, 2.5vh, 2.5rem);
+
+  z-index: 2;
 }
+
+/* ================================
+   SCENE LABEL
+================================ */
 
 .scene-label {
   display: flex;
-  gap: 0.75rem;
+  align-items: center;
+
+  gap: 0.55rem;
 
   margin-bottom: 1.5rem;
 
   color: var(--color-gunmetal);
 
   font-family: var(--font-mono);
-  font-size: 0.72rem;
+  font-size: 0.68rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
+
+.scene-label__index {
+  color: color-mix(in srgb, var(--color-ivory) 62%, var(--color-gunmetal));
+}
+
+.scene-label__divider {
+  color: var(--color-burgundy);
+}
+
+.scene-label__name {
+  color: var(--color-gunmetal);
+}
+
+/* ================================
+   HERO TYPOGRAPHY
+================================ */
 
 .hero-content {
   position: relative;
@@ -211,6 +270,7 @@ main,
 
 .hero-title__period {
   position: relative;
+
   top: -0.02em;
 
   color: var(--color-burgundy);
@@ -219,9 +279,14 @@ main,
   letter-spacing: 0;
 }
 
+/* ================================
+   HERO SUPPORTING COPY
+================================ */
+
 .hero-intro {
   display: flex;
   flex-direction: column;
+
   gap: 0.15rem;
 
   width: fit-content;
@@ -242,21 +307,72 @@ main,
   color: color-mix(in srgb, var(--color-ivory) 54%, var(--color-gunmetal));
 }
 
-.scroll-indicator {
+/* ================================
+   HERO EDITORIAL META
+================================ */
+
+.hero-meta {
   position: absolute;
-  bottom: 2rem;
-  left: var(--page-padding);
+
+  right: var(--page-padding);
+  top: calc(100vh - 2rem);
 
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+
+  gap: 1.5rem;
 
   color: var(--color-gunmetal);
 
   font-family: var(--font-mono);
-  font-size: 0.7rem;
+  font-size: 0.64rem;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
+
+  transform: translateY(-100%);
 }
+
+.hero-meta span:last-child {
+  color: color-mix(in srgb, var(--color-ivory) 48%, var(--color-gunmetal));
+}
+
+/* ================================
+   SCROLL INDICATOR
+================================ */
+
+.scroll-indicator {
+  position: absolute;
+
+  top: calc(100vh - 2rem);
+  left: var(--page-padding);
+
+  display: flex;
+  align-items: center;
+
+  gap: 0.85rem;
+
+  color: var(--color-gunmetal);
+
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+
+  transform: translateY(-100%);
+}
+
+.scroll-indicator__line {
+  display: block;
+
+  width: 3.5rem;
+  height: 1px;
+
+  background: color-mix(in srgb, var(--color-ivory) 28%, transparent);
+}
+
+/* ================================
+   FUTURE EXPERIENCE SCENES
+================================ */
 
 .scene--break-away,
 .scene--momentum,
@@ -266,10 +382,15 @@ main,
   min-height: 120vh;
 }
 
+/* ================================
+   FINAL STATEMENT
+================================ */
+
 .scene--statement {
   min-height: 100vh;
 
   align-items: center;
+
   text-align: center;
 }
 
@@ -282,6 +403,10 @@ main,
   letter-spacing: -0.06em;
   text-transform: uppercase;
 }
+
+/* ================================
+   CONTACT
+================================ */
 
 .scene--contact {
   min-height: 100vh;
@@ -299,6 +424,7 @@ main,
 
 .scene--contact p {
   max-width: 28rem;
+
   margin-bottom: 2rem;
 
   color: var(--color-gunmetal);
@@ -315,6 +441,10 @@ main,
   text-transform: uppercase;
 }
 
+/* ================================
+   FOOTER
+================================ */
+
 .site-footer {
   display: flex;
   justify-content: space-between;
@@ -328,10 +458,18 @@ main,
   text-transform: uppercase;
 }
 
+/* ================================
+   TEXT SELECTION
+================================ */
+
 ::selection {
   color: var(--color-ivory);
   background: var(--color-burgundy);
 }
+
+/* ================================
+   MOBILE
+================================ */
 
 @media (max-width: 700px) {
   .site-header {
@@ -341,6 +479,7 @@ main,
   .site-nav {
     flex-direction: column;
     align-items: flex-end;
+
     gap: 0.35rem;
   }
 
@@ -356,7 +495,20 @@ main,
 
   .hero-intro {
     margin-top: 1.75rem;
+
     font-size: 0.66rem;
+  }
+
+  .hero-meta {
+    display: none;
+  }
+
+  .scroll-indicator {
+    top: calc(100vh - 1.5rem);
+  }
+
+  .scroll-indicator__line {
+    width: 2.5rem;
   }
 
   .scene--contact h2 {
@@ -364,11 +516,16 @@ main,
   }
 }
 
+/* ================================
+   REDUCED MOTION
+================================ */
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
   *::after {
     scroll-behavior: auto !important;
+
     transition-duration: 0.001ms !important;
     animation-duration: 0.001ms !important;
     animation-iteration-count: 1 !important;

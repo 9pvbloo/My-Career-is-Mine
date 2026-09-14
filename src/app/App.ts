@@ -33,8 +33,9 @@ export class App {
             aria-labelledby="hero-title"
           >
             <div class="scene-label">
-              <span>01</span>
-              <span>Instinct</span>
+              <span class="scene-label__index">01</span>
+              <span class="scene-label__divider">/</span>
+              <span class="scene-label__name">Instinct</span>
             </div>
 
             <div class="hero-content">
@@ -54,9 +55,14 @@ export class App {
               </p>
             </div>
 
+            <div class="hero-meta" aria-hidden="true">
+              <span>Experimental Digital Experience</span>
+              <span>2026</span>
+            </div>
+
             <div class="scroll-indicator" aria-hidden="true">
-              <span>Scroll</span>
-              <span>↓</span>
+              <span>Scroll to move</span>
+              <span class="scroll-indicator__line"></span>
             </div>
           </section>
 
@@ -99,9 +105,11 @@ export class App {
             class="scene scene--contact"
             aria-labelledby="contact-title"
           >
-            <span class="scene-label">
-              08 / Contact
-            </span>
+            <div class="scene-label">
+              <span class="scene-label__index">08</span>
+              <span class="scene-label__divider">/</span>
+              <span class="scene-label__name">Contact</span>
+            </div>
 
             <h2 id="contact-title">Contact</h2>
 
