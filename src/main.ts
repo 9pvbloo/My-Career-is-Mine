@@ -1,4 +1,5 @@
 import './style.css'
+import './animation/gsap'
 
 const app = document.querySelector<HTMLDivElement>('#app')
 
