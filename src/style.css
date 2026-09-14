@@ -146,6 +146,20 @@ main,
 
 .scene--hero {
   min-height: 120vh;
+
+  justify-content: center;
+
+  padding-top: clamp(7rem, 10vh, 9rem);
+  padding-bottom: clamp(5rem, 8vh, 7rem);
+}
+
+.scene--hero > .scene-label {
+  position: relative;
+  z-index: 2;
+
+  width: fit-content;
+
+  margin-bottom: clamp(1.5rem, 2.5vh, 2.5rem);
 }
 
 .scene-label {
@@ -163,36 +177,69 @@ main,
 }
 
 .hero-content {
-  max-width: 70rem;
+  position: relative;
+
+  width: min(52vw, 58rem);
+  max-width: 58rem;
+
+  z-index: 2;
 }
 
-.hero-content h1 {
+.hero-title {
   display: flex;
   flex-direction: column;
 
   margin: 0;
 
   font-family: var(--font-display);
-  font-size: clamp(4rem, 11vw, 10rem);
+  font-size: clamp(5rem, 10.4vw, 10.75rem);
   font-weight: 800;
-  line-height: 0.82;
-  letter-spacing: -0.06em;
+  line-height: 0.78;
+  letter-spacing: -0.075em;
   text-transform: uppercase;
+
+  text-wrap: nowrap;
 }
 
-.hero-content h1 span:last-child {
-  color: var(--color-ivory);
+.hero-title__line {
+  display: block;
+}
+
+.hero-title__line--mine {
+  margin-left: 0.02em;
+}
+
+.hero-title__period {
+  position: relative;
+  top: -0.02em;
+
+  color: var(--color-burgundy);
+
+  font-size: 0.72em;
+  letter-spacing: 0;
 }
 
 .hero-intro {
-  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+
+  width: fit-content;
+
+  margin: clamp(1.5rem, 2.5vw, 2.75rem) 0 0;
 
   color: var(--color-gunmetal);
 
   font-family: var(--font-mono);
-  font-size: 0.8rem;
-  line-height: 1.6;
+  font-size: clamp(0.65rem, 0.7vw, 0.78rem);
+  font-weight: 400;
+  line-height: 1.55;
+  letter-spacing: 0.045em;
   text-transform: uppercase;
+}
+
+.hero-intro span:first-child {
+  color: color-mix(in srgb, var(--color-ivory) 54%, var(--color-gunmetal));
 }
 
 .scroll-indicator {
@@ -297,8 +344,19 @@ main,
     gap: 0.35rem;
   }
 
-  .hero-content h1 {
-    font-size: clamp(3.4rem, 18vw, 6rem);
+  .hero-content {
+    width: min(92vw, 38rem);
+  }
+
+  .hero-title {
+    font-size: clamp(3.75rem, 17.5vw, 6rem);
+    line-height: 0.8;
+    letter-spacing: -0.07em;
+  }
+
+  .hero-intro {
+    margin-top: 1.75rem;
+    font-size: 0.66rem;
   }
 
   .scene--contact h2 {

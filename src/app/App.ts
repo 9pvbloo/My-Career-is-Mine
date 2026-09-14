@@ -38,14 +38,19 @@ export class App {
             </div>
 
             <div class="hero-content">
-              <h1 id="hero-title">
-                <span>My Career</span>
-                <span>Is Mine.</span>
+              <h1 id="hero-title" class="hero-title">
+                <span class="hero-title__line">
+                  My Career
+                </span>
+
+                <span class="hero-title__line hero-title__line--mine">
+                  Is Mine<span class="hero-title__period">.</span>
+                </span>
               </h1>
 
               <p class="hero-intro">
-                No predefined tracks.<br />
-                No borrowed timelines.
+                <span>No predefined tracks.</span>
+                <span>No borrowed timelines.</span>
               </p>
             </div>
 
