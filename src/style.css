@@ -6,14 +6,11 @@
   --color-gunmetal: #777777;
   --color-burgundy: #55151d;
 
-  --font-display:
-    'Barlow Condensed', sans-serif;
+  --font-display: 'Barlow Condensed', sans-serif;
 
-  --font-body:
-    'Inter', sans-serif;
+  --font-body: 'Inter', sans-serif;
 
-  --font-mono:
-    'IBM Plex Mono', monospace;
+  --font-mono: 'IBM Plex Mono', monospace;
 
   --space-xs: 0.5rem;
   --space-sm: 0.75rem;
