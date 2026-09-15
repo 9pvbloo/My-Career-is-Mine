@@ -808,3 +808,80 @@ main,
     animation-iteration-count: 1 !important;
   }
 }
+
+/* ================================
+   HERO FALLBACK
+================================ */
+
+.hero-fallback {
+  position: absolute;
+
+  top: 50svh;
+  right: -2vw;
+
+  width: min(48vw, 46rem);
+  max-width: none;
+
+  transform: translateY(-50%);
+
+  object-fit: contain;
+
+  pointer-events: none;
+  user-select: none;
+
+  opacity: 1;
+  visibility: visible;
+
+  z-index: 0;
+}
+
+.webgl-supported .hero-fallback {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.webgl-fallback .webgl-layer,
+.webgl-fallback .webgl {
+  display: none;
+}
+
+.webgl-fallback .hero-fallback {
+  opacity: 1;
+  visibility: visible;
+}
+
+@media (min-width: 701px) and (max-width: 1100px) {
+  .hero-fallback {
+    top: 51svh;
+    right: -7vw;
+
+    width: 61vw;
+  }
+}
+
+@media (min-width: 701px) and (max-width: 900px) and (orientation: portrait) {
+  .hero-fallback {
+    top: 57svh;
+    right: -18vw;
+
+    width: 78vw;
+  }
+}
+
+@media (max-width: 700px) {
+  .hero-fallback {
+    top: 57svh;
+    right: -32vw;
+
+    width: 115vw;
+  }
+}
+
+@media (max-width: 1000px) and (max-height: 500px) and (orientation: landscape) {
+  .hero-fallback {
+    top: 52svh;
+    right: -6vw;
+
+    width: 58vw;
+  }
+}

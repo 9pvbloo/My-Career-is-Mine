@@ -16,15 +16,28 @@ export class Renderer {
 
     if (this.ownsCanvas) {
       this.canvas.classList.add('webgl')
-      document.body.prepend(this.canvas)
+
+      const host = document.querySelector<HTMLElement>('#webgl-root')
+
+      ;(host ?? document.body).prepend(this.canvas)
     }
 
-    this.instance = new THREE.WebGLRenderer({
-      canvas: this.canvas,
-      antialias: true,
-      alpha: true,
-      powerPreference: 'high-performance',
-    })
+    try {
+      this.instance = new THREE.WebGLRenderer({
+        canvas: this.canvas,
+        antialias: true,
+        alpha: true,
+        powerPreference: 'high-performance',
+      })
+    } catch (error) {
+      if (this.ownsCanvas) {
+        this.canvas.remove()
+      }
+
+      throw new Error('Unable to initialize WebGL renderer.', {
+        cause: error,
+      })
+    }
 
     this.instance.outputColorSpace = THREE.SRGBColorSpace
 
@@ -37,11 +50,13 @@ export class Renderer {
 
   resize(sizes: Sizes): void {
     this.instance.setSize(sizes.width, sizes.height)
+
     this.instance.setPixelRatio(sizes.pixelRatio)
   }
 
   dispose(): void {
     this.unsubscribeResize()
+
     this.instance.dispose()
 
     if (this.ownsCanvas) {
