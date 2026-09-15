@@ -20,6 +20,7 @@
   --space-2xl: 8rem;
 
   --page-padding: clamp(1rem, 3vw, 3rem);
+  --hero-viewport: 100svh;
 }
 
 *,
@@ -35,8 +36,11 @@ html {
 
 body {
   margin: 0;
+
   min-width: 320px;
   min-height: 100vh;
+
+  overflow-x: clip;
 
   color: var(--color-ivory);
   background: var(--color-obsidian);
@@ -60,6 +64,7 @@ img,
 canvas,
 svg {
   display: block;
+
   max-width: 100%;
 }
 
@@ -123,8 +128,8 @@ main,
 .site-header {
   position: fixed;
   top: 0;
-  left: 0;
   right: 0;
+  left: 0;
 
   display: flex;
   align-items: center;
@@ -181,20 +186,29 @@ main,
 ================================ */
 
 .scene--hero {
-  min-height: 120vh;
+  position: relative;
 
-  justify-content: center;
+  display: block;
 
-  padding-top: clamp(7rem, 10vh, 9rem);
-  padding-bottom: clamp(5rem, 8vh, 7rem);
+  min-height: 120svh;
+
+  padding: 0;
 }
 
+/* ================================
+   HERO SCENE LABEL
+================================ */
+
 .scene--hero > .scene-label {
-  position: relative;
+  position: absolute;
+
+  top: clamp(8rem, 28svh, 16rem);
+
+  left: var(--page-padding);
 
   width: fit-content;
 
-  margin-bottom: clamp(1.5rem, 2.5vh, 2.5rem);
+  margin: 0;
 
   z-index: 2;
 }
@@ -232,17 +246,25 @@ main,
 }
 
 /* ================================
-   HERO TYPOGRAPHY
+   HERO CONTENT
 ================================ */
 
 .hero-content {
-  position: relative;
+  position: absolute;
+
+  top: clamp(11rem, 34svh, 20rem);
+
+  left: var(--page-padding);
 
   width: min(52vw, 58rem);
   max-width: 58rem;
 
   z-index: 2;
 }
+
+/* ================================
+   HERO TYPOGRAPHY
+================================ */
 
 .hero-title {
   display: flex;
@@ -252,12 +274,13 @@ main,
 
   font-family: var(--font-display);
   font-size: clamp(5rem, 10.4vw, 10.75rem);
+
   font-weight: 800;
   line-height: 0.78;
   letter-spacing: -0.075em;
   text-transform: uppercase;
 
-  text-wrap: nowrap;
+  white-space: nowrap;
 }
 
 .hero-title__line {
@@ -297,6 +320,7 @@ main,
 
   font-family: var(--font-mono);
   font-size: clamp(0.65rem, 0.7vw, 0.78rem);
+
   font-weight: 400;
   line-height: 1.55;
   letter-spacing: 0.045em;
@@ -314,8 +338,9 @@ main,
 .hero-meta {
   position: absolute;
 
+  top: calc(var(--hero-viewport) - 2rem);
+
   right: var(--page-padding);
-  top: calc(100vh - 2rem);
 
   display: flex;
   align-items: center;
@@ -330,6 +355,8 @@ main,
   text-transform: uppercase;
 
   transform: translateY(-100%);
+
+  z-index: 2;
 }
 
 .hero-meta span:last-child {
@@ -343,7 +370,8 @@ main,
 .scroll-indicator {
   position: absolute;
 
-  top: calc(100vh - 2rem);
+  top: calc(var(--hero-viewport) - 2rem);
+
   left: var(--page-padding);
 
   display: flex;
@@ -359,6 +387,8 @@ main,
   text-transform: uppercase;
 
   transform: translateY(-100%);
+
+  z-index: 2;
 }
 
 .scroll-indicator__line {
@@ -399,6 +429,7 @@ main,
 
   font-family: var(--font-display);
   font-size: clamp(4rem, 12vw, 11rem);
+
   line-height: 0.85;
   letter-spacing: -0.06em;
   text-transform: uppercase;
@@ -417,6 +448,7 @@ main,
 
   font-family: var(--font-display);
   font-size: clamp(5rem, 14vw, 13rem);
+
   line-height: 0.8;
   letter-spacing: -0.06em;
   text-transform: uppercase;
@@ -468,35 +500,160 @@ main,
 }
 
 /* ================================
+   TABLET
+================================ */
+
+@media (min-width: 701px) and (max-width: 1100px) {
+  :root {
+    --page-padding: clamp(1.5rem, 4vw, 2.5rem);
+  }
+
+  .site-header {
+    padding-top: 1.1rem;
+  }
+
+  .scene--hero > .scene-label {
+    top: clamp(7rem, 22svh, 12rem);
+  }
+
+  .hero-content {
+    top: clamp(10rem, 28svh, 16rem);
+
+    width: min(58vw, 36rem);
+  }
+
+  .hero-title {
+    font-size: clamp(4.75rem, 10.5vw, 7.25rem);
+
+    line-height: 0.79;
+  }
+
+  .hero-intro {
+    margin-top: 1.65rem;
+
+    font-size: 0.64rem;
+  }
+
+  .hero-meta {
+    gap: 1rem;
+
+    font-size: 0.58rem;
+  }
+
+  .scroll-indicator {
+    font-size: 0.58rem;
+  }
+}
+
+/* ================================
+   PORTRAIT TABLET
+================================ */
+
+@media (min-width: 701px) and (max-width: 900px) and (orientation: portrait) {
+  .scene--hero > .scene-label {
+    top: 17svh;
+  }
+
+  .hero-content {
+    top: 23svh;
+
+    width: min(70vw, 34rem);
+  }
+
+  .hero-title {
+    font-size: clamp(4.6rem, 10.6vw, 6.4rem);
+  }
+
+  .hero-meta {
+    display: none;
+  }
+}
+
+/* ================================
    MOBILE
 ================================ */
 
 @media (max-width: 700px) {
+  :root {
+    --page-padding: clamp(1rem, 5vw, 1.5rem);
+  }
+
   .site-header {
-    align-items: flex-start;
+    align-items: center;
+
+    padding-top: 1rem;
+
+    font-size: 0.62rem;
+  }
+
+  .site-brand {
+    max-width: 9rem;
+
+    line-height: 1.15;
   }
 
   .site-nav {
-    flex-direction: column;
-    align-items: flex-end;
+    gap: 0;
+  }
 
-    gap: 0.35rem;
+  .site-nav a:first-child {
+    display: none;
+  }
+
+  .scene--hero {
+    min-height: 120svh;
+  }
+
+  .scene--hero > .scene-label {
+    top: 14svh;
+
+    margin: 0;
+  }
+
+  .scene-label {
+    font-size: 0.6rem;
   }
 
   .hero-content {
-    width: min(92vw, 38rem);
+    position: static;
+
+    width: auto;
+    max-width: none;
   }
 
   .hero-title {
-    font-size: clamp(3.75rem, 17.5vw, 6rem);
+    position: absolute;
+
+    top: 20svh;
+    left: var(--page-padding);
+
+    max-width: calc(100vw - var(--page-padding) * 2);
+
+    font-size: clamp(3.65rem, 17.2vw, 6rem);
+
     line-height: 0.8;
     letter-spacing: -0.07em;
+
+    z-index: 2;
+  }
+
+  .hero-title__line {
+    width: fit-content;
   }
 
   .hero-intro {
-    margin-top: 1.75rem;
+    position: absolute;
 
-    font-size: 0.66rem;
+    top: calc(var(--hero-viewport) - 9rem);
+
+    left: var(--page-padding);
+
+    margin: 0;
+
+    font-size: 0.62rem;
+    line-height: 1.55;
+
+    z-index: 2;
   }
 
   .hero-meta {
@@ -504,7 +661,9 @@ main,
   }
 
   .scroll-indicator {
-    top: calc(100vh - 1.5rem);
+    top: calc(var(--hero-viewport) - 1.5rem);
+
+    font-size: 0.58rem;
   }
 
   .scroll-indicator__line {
@@ -513,6 +672,122 @@ main,
 
   .scene--contact h2 {
     font-size: clamp(4rem, 20vw, 7rem);
+  }
+}
+
+/* ================================
+   COMPACT MOBILE
+================================ */
+
+@media (max-width: 380px) {
+  .site-brand {
+    max-width: 8rem;
+  }
+
+  .hero-title {
+    font-size: clamp(3.4rem, 17vw, 5.4rem);
+  }
+
+  .hero-intro {
+    font-size: 0.58rem;
+  }
+}
+
+/* ================================
+   MOBILE LANDSCAPE
+================================ */
+
+@media (max-width: 1000px) and (max-height: 500px) and (orientation: landscape) {
+  :root {
+    --page-padding: 1.25rem;
+  }
+
+  .site-header {
+    padding-top: 0.85rem;
+  }
+
+  .site-nav a:first-child {
+    display: none;
+  }
+
+  .scene--hero > .scene-label {
+    top: 4.75rem;
+  }
+
+  .hero-content {
+    position: absolute;
+
+    top: 7rem;
+    left: var(--page-padding);
+
+    width: 50vw;
+  }
+
+  .hero-title {
+    position: static;
+
+    max-width: none;
+
+    font-size: clamp(3rem, 9vw, 5rem);
+
+    line-height: 0.78;
+  }
+
+  .hero-intro {
+    position: static;
+
+    margin-top: 1rem;
+
+    font-size: 0.56rem;
+  }
+
+  .hero-meta {
+    display: none;
+  }
+
+  .scroll-indicator {
+    top: calc(var(--hero-viewport) - 1rem);
+  }
+}
+
+/* ================================
+   SHORT DESKTOP / TABLET
+================================ */
+
+@media (max-height: 720px) and (min-width: 701px) {
+  .scene--hero > .scene-label {
+    top: 21svh;
+  }
+
+  .hero-content {
+    top: 28svh;
+  }
+
+  .hero-title {
+    font-size: clamp(4.5rem, 9.25vw, 8rem);
+  }
+
+  .hero-intro {
+    margin-top: 1.15rem;
+  }
+
+  .hero-meta,
+  .scroll-indicator {
+    top: calc(var(--hero-viewport) - 1.25rem);
+  }
+}
+
+/* ================================
+   WIDE DESKTOP
+================================ */
+
+@media (min-width: 1800px) {
+  .hero-content {
+    width: min(48vw, 62rem);
+  }
+
+  .hero-title {
+    font-size: clamp(8rem, 9.6vw, 11.5rem);
   }
 }
 
@@ -527,7 +802,9 @@ main,
     scroll-behavior: auto !important;
 
     transition-duration: 0.001ms !important;
+
     animation-duration: 0.001ms !important;
+
     animation-iteration-count: 1 !important;
   }
 }
