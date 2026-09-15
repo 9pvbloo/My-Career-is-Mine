@@ -20,7 +20,10 @@ export class App {
             MY CAREER IS MINE.
           </a>
 
-          <nav class="site-nav" aria-label="Primary navigation">
+          <nav
+            class="site-nav"
+            aria-label="Primary navigation"
+          >
             <a href="#hero">Instinct</a>
             <a href="#contact">Contact</a>
           </nav>
@@ -32,26 +35,79 @@ export class App {
             class="scene scene--hero"
             aria-labelledby="hero-title"
           >
+            <img
+              class="hero-fallback"
+              src="/assets/horse/hero/hero-horse.webp"
+              alt=""
+              aria-hidden="true"
+            />
+
             <div class="scene-label">
-              <span>01</span>
-              <span>Instinct</span>
+              <span class="scene-label__index">
+                01
+              </span>
+
+              <span class="scene-label__divider">
+                /
+              </span>
+
+              <span class="scene-label__name">
+                Instinct
+              </span>
             </div>
 
             <div class="hero-content">
-              <h1 id="hero-title">
-                <span>My Career</span>
-                <span>Is Mine.</span>
+              <h1
+                id="hero-title"
+                class="hero-title"
+              >
+                <span class="hero-title__line">
+                  My Career
+                </span>
+
+                <span
+                  class="
+                    hero-title__line
+                    hero-title__line--mine
+                  "
+                >
+                  Is Mine<span
+                    class="hero-title__period"
+                  >.</span>
+                </span>
               </h1>
 
               <p class="hero-intro">
-                No predefined tracks.<br />
-                No borrowed timelines.
+                <span>
+                  No predefined tracks.
+                </span>
+
+                <span>
+                  No borrowed timelines.
+                </span>
               </p>
             </div>
 
-            <div class="scroll-indicator" aria-hidden="true">
-              <span>Scroll</span>
-              <span>↓</span>
+            <div
+              class="hero-meta"
+              aria-hidden="true"
+            >
+              <span>
+                Experimental Digital Experience
+              </span>
+
+              <span>2026</span>
+            </div>
+
+            <div
+              class="scroll-indicator"
+              aria-hidden="true"
+            >
+              <span>Scroll to move</span>
+
+              <span
+                class="scroll-indicator__line"
+              ></span>
             </div>
           </section>
 
@@ -94,14 +150,27 @@ export class App {
             class="scene scene--contact"
             aria-labelledby="contact-title"
           >
-            <span class="scene-label">
-              08 / Contact
-            </span>
+            <div class="scene-label">
+              <span class="scene-label__index">
+                08
+              </span>
 
-            <h2 id="contact-title">Contact</h2>
+              <span class="scene-label__divider">
+                /
+              </span>
+
+              <span class="scene-label__name">
+                Contact
+              </span>
+            </div>
+
+            <h2 id="contact-title">
+              Contact
+            </h2>
 
             <p>
-              Want to build something unforgettable?
+              Want to build something
+              unforgettable?
             </p>
 
             <a

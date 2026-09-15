@@ -3,6 +3,7 @@ import { Renderer } from '../core/Renderer'
 import { ScrollDirector } from '../core/ScrollDirector'
 import { Sizes } from '../core/Sizes'
 import { Time } from '../core/Time'
+import { HeroScene } from '../scenes/HeroScene'
 
 export type RuntimeUpdate = (time: Time) => void
 
@@ -12,6 +13,7 @@ export class Runtime {
   readonly renderer: Renderer
   readonly pointer: Pointer
   readonly scroll: ScrollDirector
+  readonly heroScene: HeroScene
 
   private frameId: number | null = null
   private running = false
@@ -22,6 +24,7 @@ export class Runtime {
     this.renderer = new Renderer(this.sizes)
     this.pointer = new Pointer(this.sizes)
     this.scroll = new ScrollDirector()
+    this.heroScene = new HeroScene(this.renderer, this.sizes)
 
     this.tick = this.tick.bind(this)
     this.handleVisibilityChange = this.handleVisibilityChange.bind(this)
@@ -71,6 +74,7 @@ export class Runtime {
 
     this.updateCallbacks.clear()
 
+    this.heroScene.dispose()
     this.scroll.dispose()
     this.pointer.dispose()
     this.renderer.dispose()
@@ -89,6 +93,8 @@ export class Runtime {
     for (const callback of this.updateCallbacks) {
       callback(this.time)
     }
+
+    this.heroScene.update()
 
     this.frameId = requestAnimationFrame(this.tick)
   }
