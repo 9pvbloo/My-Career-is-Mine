@@ -4,11 +4,13 @@ import type { Pointer } from '../core/Pointer'
 import type { Renderer } from '../core/Renderer'
 import type { Sizes } from '../core/Sizes'
 import { LiquidField } from '../effects/LiquidField'
+import { TypographicField } from '../effects/TypographicField'
 import fragmentShader from '../shaders/horseLiquid.frag.glsl?raw'
 import vertexShader from '../shaders/horseLiquid.vert.glsl?raw'
 
 const HERO_TEXTURE_PATH = '/assets/horse/hero/hero-horse.webp'
 const HORSE_LIQUID_DISTORTION_STRENGTH = 0.12
+const TYPOGRAPHIC_FIELD_DEPTH = -0.1
 
 type HorseLayout = {
   heightRatio: number
@@ -23,8 +25,10 @@ export class HeroScene {
   private readonly renderer: Renderer
   private readonly sizes: Sizes
   private readonly liquidField: LiquidField
+  private readonly typographicField: TypographicField
   private readonly textureLoader = new THREE.TextureLoader()
   private readonly drawingBufferSize = new THREE.Vector2()
+  private readonly horseScreenBounds = new THREE.Vector4()
 
   private readonly geometry = new THREE.PlaneGeometry(1, 1)
 
@@ -52,6 +56,10 @@ export class HeroScene {
     this.sizes = sizes
     this.liquidField = new LiquidField(renderer, sizes, pointer)
     this.material.uniforms.uLiquidField.value = this.liquidField.texture
+    this.typographicField = new TypographicField(
+      this.liquidField.texture,
+      this.drawingBufferSize,
+    )
 
     this.scene = new THREE.Scene()
 
@@ -64,7 +72,7 @@ export class HeroScene {
 
     this.camera.position.set(0, 0, 5)
 
-    this.scene.add(this.horse)
+    this.scene.add(this.typographicField.mesh, this.horse)
 
     this.unsubscribeResize = this.sizes.onResize(() => {
       this.resize()
@@ -77,6 +85,7 @@ export class HeroScene {
   update(delta: number): void {
     this.liquidField.update(delta)
     this.material.uniforms.uLiquidField.value = this.liquidField.texture
+    this.typographicField.setLiquidFieldTexture(this.liquidField.texture)
 
     this.renderer.instance.render(this.scene, this.camera)
   }
@@ -85,11 +94,12 @@ export class HeroScene {
     this.unsubscribeResize()
 
     this.liquidField.dispose()
+    this.typographicField.dispose()
     this.horseTexture?.dispose()
     this.material.dispose()
     this.geometry.dispose()
 
-    this.scene.remove(this.horse)
+    this.scene.remove(this.typographicField.mesh, this.horse)
     this.scene.clear()
   }
 
@@ -106,6 +116,7 @@ export class HeroScene {
 
         this.horseTexture = texture
         this.material.uniforms.uHorseTexture.value = texture
+        this.typographicField.setHorseTexture(texture)
 
         this.updateHorseTransform()
       },
@@ -123,6 +134,7 @@ export class HeroScene {
 
     this.liquidField.resize()
     this.updateDrawingBufferSize()
+    this.updateTypographicFieldTransform()
     this.updateHorseTransform()
   }
 
@@ -168,13 +180,42 @@ export class HeroScene {
     this.horse.scale.set(horseWidth, horseHeight, 1)
 
     this.horse.position.set(horseX, horseY, 0)
+    this.updateHorseScreenBounds(viewSize)
   }
 
-  private getCameraViewSize(): {
+  private updateTypographicFieldTransform(): void {
+    const viewSize = this.getCameraViewSize(TYPOGRAPHIC_FIELD_DEPTH)
+
+    this.typographicField.resize(
+      viewSize.width,
+      viewSize.height,
+      this.sizes.width,
+      this.sizes.height,
+    )
+  }
+
+  private updateHorseScreenBounds(viewSize: {
+    width: number
+    height: number
+  }): void {
+    const halfHorseWidth = this.horse.scale.x / 2
+    const halfHorseHeight = this.horse.scale.y / 2
+
+    this.horseScreenBounds.set(
+      0.5 + (this.horse.position.x - halfHorseWidth) / viewSize.width,
+      0.5 + (this.horse.position.y - halfHorseHeight) / viewSize.height,
+      0.5 + (this.horse.position.x + halfHorseWidth) / viewSize.width,
+      0.5 + (this.horse.position.y + halfHorseHeight) / viewSize.height,
+    )
+
+    this.typographicField.setHorseScreenBounds(this.horseScreenBounds)
+  }
+
+  private getCameraViewSize(depth = 0): {
     width: number
     height: number
   } {
-    const distance = Math.abs(this.camera.position.z)
+    const distance = Math.abs(this.camera.position.z - depth)
 
     const verticalFov = THREE.MathUtils.degToRad(this.camera.fov)
 

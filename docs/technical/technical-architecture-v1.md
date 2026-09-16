@@ -590,7 +590,7 @@ Example:
 --color-obsidian
 --color-ivory
 --color-gunmetal
---color-burgundy
+--color-accent
 
 --font-display
 --font-body

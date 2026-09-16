@@ -86,7 +86,7 @@ The composition can no longer contain the horse.
 16% → 21%
 
 - Typography stretches outside the viewport.
-- Burgundy accents appear briefly.
+- Editorial red accents appear briefly.
 - Camera starts following the horse.
 
 21% → 25%
@@ -296,7 +296,7 @@ Climax.
 89% → 92%
 
 - "IS MINE." completes the statement.
-- Burgundy punctuation appears last.
+- Editorial red punctuation appears last.
 
 ## Text
 
@@ -380,7 +380,7 @@ Fast only when storytelling demands it.
 Used as transitions.
 Never decorative filler.
 
-## Burgundy
+## Editorial Red
 
 Used only as emphasis.
 
