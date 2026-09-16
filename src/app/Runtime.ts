@@ -24,7 +24,7 @@ export class Runtime {
     this.renderer = new Renderer(this.sizes)
     this.pointer = new Pointer(this.sizes)
     this.scroll = new ScrollDirector()
-    this.heroScene = new HeroScene(this.renderer, this.sizes)
+    this.heroScene = new HeroScene(this.renderer, this.sizes, this.pointer)
 
     this.tick = this.tick.bind(this)
     this.handleVisibilityChange = this.handleVisibilityChange.bind(this)
@@ -94,7 +94,7 @@ export class Runtime {
       callback(this.time)
     }
 
-    this.heroScene.update()
+    this.heroScene.update(this.time.delta)
 
     this.frameId = requestAnimationFrame(this.tick)
   }

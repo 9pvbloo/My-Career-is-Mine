@@ -1,7 +1,9 @@
 import * as THREE from 'three'
 
+import type { Pointer } from '../core/Pointer'
 import type { Renderer } from '../core/Renderer'
 import type { Sizes } from '../core/Sizes'
+import { LiquidField } from '../effects/LiquidField'
 
 const HERO_TEXTURE_PATH = '/assets/horse/hero/hero-horse.webp'
 
@@ -17,6 +19,7 @@ export class HeroScene {
 
   private readonly renderer: Renderer
   private readonly sizes: Sizes
+  private readonly liquidField: LiquidField
   private readonly textureLoader = new THREE.TextureLoader()
 
   private readonly geometry = new THREE.PlaneGeometry(1, 1)
@@ -32,9 +35,10 @@ export class HeroScene {
 
   private horseTexture: THREE.Texture | null = null
 
-  constructor(renderer: Renderer, sizes: Sizes) {
+  constructor(renderer: Renderer, sizes: Sizes, pointer: Pointer) {
     this.renderer = renderer
     this.sizes = sizes
+    this.liquidField = new LiquidField(renderer, sizes, pointer)
 
     this.scene = new THREE.Scene()
 
@@ -57,13 +61,15 @@ export class HeroScene {
     this.resize()
   }
 
-  update(): void {
+  update(delta: number): void {
+    this.liquidField.update(delta)
     this.renderer.instance.render(this.scene, this.camera)
   }
 
   dispose(): void {
     this.unsubscribeResize()
 
+    this.liquidField.dispose()
     this.horseTexture?.dispose()
     this.material.dispose()
     this.geometry.dispose()
@@ -99,6 +105,7 @@ export class HeroScene {
 
     this.camera.updateProjectionMatrix()
 
+    this.liquidField.resize()
     this.updateHorseTransform()
   }
 
