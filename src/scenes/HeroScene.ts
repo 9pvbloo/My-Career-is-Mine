@@ -5,10 +5,12 @@ import type { Renderer } from '../core/Renderer'
 import type { Sizes } from '../core/Sizes'
 import { LiquidField } from '../effects/LiquidField'
 import { TypographicField } from '../effects/TypographicField'
+import { AnimatedTextureSequence } from '../media/AnimatedTextureSequence'
 import fragmentShader from '../shaders/horseLiquid.frag.glsl?raw'
 import vertexShader from '../shaders/horseLiquid.vert.glsl?raw'
 
-const HERO_TEXTURE_PATH = '/assets/horse/hero/hero-horse.webp'
+const HERO_HORSE_FRAME_URLS = ['/assets/horse/hero/hero-horse.webp'] as const
+const HERO_HORSE_FPS = 24
 const HORSE_LIQUID_DISTORTION_STRENGTH = 0.12
 const TYPOGRAPHIC_FIELD_DEPTH = -0.1
 
@@ -26,7 +28,7 @@ export class HeroScene {
   private readonly sizes: Sizes
   private readonly liquidField: LiquidField
   private readonly typographicField: TypographicField
-  private readonly textureLoader = new THREE.TextureLoader()
+  private readonly horseSequence: AnimatedTextureSequence
   private readonly drawingBufferSize = new THREE.Vector2()
   private readonly horseScreenBounds = new THREE.Vector4()
 
@@ -78,7 +80,14 @@ export class HeroScene {
       this.resize()
     })
 
-    this.loadHorseTexture()
+    this.horseSequence = new AnimatedTextureSequence(HERO_HORSE_FRAME_URLS, {
+      fps: HERO_HORSE_FPS,
+      configureTexture: this.configureHorseTexture,
+      onError: (url, error) => {
+        console.error(`Failed to load hero horse texture: ${url}`, error)
+      },
+    })
+
     this.resize()
   }
 
@@ -86,6 +95,8 @@ export class HeroScene {
     this.liquidField.update(delta)
     this.material.uniforms.uLiquidField.value = this.liquidField.texture
     this.typographicField.setLiquidFieldTexture(this.liquidField.texture)
+    this.horseSequence.update(delta)
+    this.syncHorseTexture()
 
     this.renderer.instance.render(this.scene, this.camera)
   }
@@ -95,7 +106,7 @@ export class HeroScene {
 
     this.liquidField.dispose()
     this.typographicField.dispose()
-    this.horseTexture?.dispose()
+    this.horseSequence.dispose()
     this.material.dispose()
     this.geometry.dispose()
 
@@ -103,28 +114,26 @@ export class HeroScene {
     this.scene.clear()
   }
 
-  private loadHorseTexture(): void {
-    this.textureLoader.load(
-      HERO_TEXTURE_PATH,
-      (texture) => {
-        texture.colorSpace = THREE.SRGBColorSpace
-        texture.minFilter = THREE.LinearFilter
-        texture.magFilter = THREE.LinearFilter
-        texture.generateMipmaps = false
-        texture.wrapS = THREE.ClampToEdgeWrapping
-        texture.wrapT = THREE.ClampToEdgeWrapping
+  private configureHorseTexture(texture: THREE.Texture): void {
+    texture.colorSpace = THREE.SRGBColorSpace
+    texture.minFilter = THREE.LinearFilter
+    texture.magFilter = THREE.LinearFilter
+    texture.generateMipmaps = false
+    texture.wrapS = THREE.ClampToEdgeWrapping
+    texture.wrapT = THREE.ClampToEdgeWrapping
+  }
 
-        this.horseTexture = texture
-        this.material.uniforms.uHorseTexture.value = texture
-        this.typographicField.setHorseTexture(texture)
+  private syncHorseTexture(): void {
+    const texture = this.horseSequence.currentTexture
 
-        this.updateHorseTransform()
-      },
-      undefined,
-      (error) => {
-        console.error('Failed to load hero horse texture.', error)
-      },
-    )
+    if (!texture || texture === this.horseTexture) {
+      return
+    }
+
+    this.horseTexture = texture
+    this.material.uniforms.uHorseTexture.value = texture
+    this.typographicField.setHorseTexture(texture)
+    this.updateHorseTransform()
   }
 
   private resize(): void {
