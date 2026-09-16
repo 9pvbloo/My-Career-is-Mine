@@ -4,8 +4,11 @@ import type { Pointer } from '../core/Pointer'
 import type { Renderer } from '../core/Renderer'
 import type { Sizes } from '../core/Sizes'
 import { LiquidField } from '../effects/LiquidField'
+import fragmentShader from '../shaders/horseLiquid.frag.glsl?raw'
+import vertexShader from '../shaders/horseLiquid.vert.glsl?raw'
 
 const HERO_TEXTURE_PATH = '/assets/horse/hero/hero-horse.webp'
+const HORSE_LIQUID_DISTORTION_STRENGTH = 0.12
 
 type HorseLayout = {
   heightRatio: number
@@ -21,12 +24,21 @@ export class HeroScene {
   private readonly sizes: Sizes
   private readonly liquidField: LiquidField
   private readonly textureLoader = new THREE.TextureLoader()
+  private readonly drawingBufferSize = new THREE.Vector2()
 
   private readonly geometry = new THREE.PlaneGeometry(1, 1)
 
-  private readonly material = new THREE.MeshBasicMaterial({
+  private readonly material = new THREE.ShaderMaterial({
     transparent: true,
     toneMapped: false,
+    vertexShader,
+    fragmentShader,
+    uniforms: {
+      uHorseTexture: { value: null },
+      uLiquidField: { value: null },
+      uResolution: { value: this.drawingBufferSize },
+      uDistortionStrength: { value: HORSE_LIQUID_DISTORTION_STRENGTH },
+    },
   })
 
   private readonly horse = new THREE.Mesh(this.geometry, this.material)
@@ -39,6 +51,7 @@ export class HeroScene {
     this.renderer = renderer
     this.sizes = sizes
     this.liquidField = new LiquidField(renderer, sizes, pointer)
+    this.material.uniforms.uLiquidField.value = this.liquidField.texture
 
     this.scene = new THREE.Scene()
 
@@ -63,6 +76,8 @@ export class HeroScene {
 
   update(delta: number): void {
     this.liquidField.update(delta)
+    this.material.uniforms.uLiquidField.value = this.liquidField.texture
+
     this.renderer.instance.render(this.scene, this.camera)
   }
 
@@ -86,10 +101,11 @@ export class HeroScene {
         texture.minFilter = THREE.LinearFilter
         texture.magFilter = THREE.LinearFilter
         texture.generateMipmaps = false
+        texture.wrapS = THREE.ClampToEdgeWrapping
+        texture.wrapT = THREE.ClampToEdgeWrapping
 
         this.horseTexture = texture
-        this.material.map = texture
-        this.material.needsUpdate = true
+        this.material.uniforms.uHorseTexture.value = texture
 
         this.updateHorseTransform()
       },
@@ -106,7 +122,12 @@ export class HeroScene {
     this.camera.updateProjectionMatrix()
 
     this.liquidField.resize()
+    this.updateDrawingBufferSize()
     this.updateHorseTransform()
+  }
+
+  private updateDrawingBufferSize(): void {
+    this.renderer.instance.getDrawingBufferSize(this.drawingBufferSize)
   }
 
   private updateHorseTransform(): void {
